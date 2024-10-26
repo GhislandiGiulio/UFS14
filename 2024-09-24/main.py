@@ -1,6 +1,7 @@
 # importazone varie librerie
 import pandas as pd
 import numpy as np
+import os
 
 # librerie SKLearn
 from sklearn.model_selection import train_test_split, KFold, GridSearchCV, RandomizedSearchCV
@@ -11,7 +12,9 @@ from sklearn.compose import ColumnTransformer
 from sklearn.discriminant_analysis import StandardScaler
 from sklearn.metrics import mean_absolute_error, mean_absolute_percentage_error, make_scorer
 
-houses_dataframe = pd.read_csv("./data/house-prices-advanced-regression-techniques.csv")
+model_dir = os.environ['SM_MODEL_DIR']
+
+houses_dataframe = pd.read_csv(model_dir+"/data/input/data.csv")
 houses_dataframe.head()
 
 prezzi_vendita = houses_dataframe["SalePrice"]
@@ -91,7 +94,5 @@ gridsearch.fit(X_train_finale, y_train)
 
 # salvataggio del modello
 from sklearn.externals import joblib
-
-model_dir = os.environ['SM_MODEL_DIR']
 
 joblib.dump(gridsearch, model_dir+'/model.joblib')
