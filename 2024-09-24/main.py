@@ -2,6 +2,7 @@
 import pandas as pd
 import numpy as np
 import os
+import joblib
 
 # librerie SKLearn
 from sklearn.model_selection import train_test_split, KFold, GridSearchCV, RandomizedSearchCV
@@ -13,8 +14,9 @@ from sklearn.discriminant_analysis import StandardScaler
 from sklearn.metrics import mean_absolute_error, mean_absolute_percentage_error, make_scorer
 
 model_dir = os.environ['SM_MODEL_DIR']
+input_dir = os.environ['SM_INPUT_DIR']
 
-houses_dataframe = pd.read_csv(model_dir+"/data/input/data.csv")
+houses_dataframe = pd.read_csv(input_dir+"/data/training/train.csv")
 houses_dataframe.head()
 
 prezzi_vendita = houses_dataframe["SalePrice"]
@@ -93,6 +95,4 @@ gridsearch = GridSearchCV(
 gridsearch.fit(X_train_finale, y_train)
 
 # salvataggio del modello
-from sklearn.externals import joblib
-
 joblib.dump(gridsearch, model_dir+'/model.joblib')
