@@ -1,5 +1,0 @@
-FROM 520713654638.dkr.ecr.us-east-1.amazonaws.com/sagemaker-tensorflow-serving:1.12.0-cpu
-
-ADD requirements-inference.txt /opt/requirements.txt
-
-ADD ./inference.py /opt/inference.py
