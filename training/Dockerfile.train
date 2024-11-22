@@ -3,6 +3,6 @@ FROM 763104351884.dkr.ecr.us-east-1.amazonaws.com/tensorflow-training:2.12.0-cpu
 ADD ./requirements.txt /opt/ml/code/requirements.txt
 RUN pip install -r /opt/ml/code/requirements.txt
 RUN pip install joblib
-ADD ./main.py /opt/ml/code/training.py
+ADD ./training.py /opt/ml/code/training.py
 
-ENV SAGEMAKER_PROGRAM main.py
+ENV SAGEMAKER_PROGRAM training.py
